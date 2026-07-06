@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Domain extends Model
 {
+    protected $fillable = [
+        'domain'
+    ];
+
     public function nameservers(): BelongsToMany
     {
         return $this
