@@ -32,6 +32,10 @@ class ReverseLookupNameserver extends Command
             'nameserver' => strtolower($nameserver)
         ]);
 
+        if (!$nameserver->wasRecentlyCreated and !$this->confirm('Nameserver already exists, do you want to clear old data and fetch new?')) {
+            return;
+        }
+
         // Clear old records
         DomainNameserver::query()->where('nameserver_id', $nameserver->id)->delete();
         $this->info('Cleared old records');
