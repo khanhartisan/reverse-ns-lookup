@@ -41,8 +41,11 @@ class LookupController extends Controller
         });
 
 //        $intersectDomains = array_map(fn (string $domain) => "'$domain', ", $intersectDomains);
+        sort($intersectDomains);
 
-        return 'Total: '.count($intersectDomains).'<br />----------<br />'.implode('<br />'."\n", $intersectDomains);
+        return count($intersectDomains).' using nameservers:<br />'
+            .implode('<br />', array_map(fn (Nameserver $nameserver) => $nameserver->nameserver, $nameservers))
+            .'<br />----------<br />'.implode('<br />'."\n", $intersectDomains);
     }
 
     protected function getNameserver(string $nameserverString): Nameserver
